@@ -1,0 +1,29 @@
+stock-app/
+│
+├── src/
+│   ├── controllers/
+│   ├── services/
+│   ├── routes/
+│   ├── models/
+│   ├── config/
+│   ├── middlewares/
+│   ├── utils/
+│   ├── app.js
+│   └── server.js
+│
+├── tests/
+│   ├── health.test.js
+│   └── setup.js
+│
+├── docker/
+│   ├── docker-compose.yml
+│   ├── docker-compose.prod.yml
+│   └── nginx/
+│       └── default.conf
+│
+├── .env
+├── .env.example
+├── .gitignore
+├── Dockerfile
+├── package.json
+├── README.md
