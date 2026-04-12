@@ -1,27 +1,17 @@
 const redis = require("../config/redis");
-
-let stocks = [];
-
-const initialData = [
-    { symbol: "AAPL", price: 150 },
-    { symbol: "TSLA", price: 700 },
-];
-
-exports.resetStocks = () => {
-    stocks = JSON.parse(JSON.stringify(initialData));
-};
-
-exports.resetStocks();
+const Stock = require("../models/stock.model");
 
 // 🔹 GET ALL
-exports.getAllStocks = () => stocks;
+exports.getAllStocks = async () => {
+    return await Stock.find();
+};
 
 // 🔹 GET BY SYMBOL (WITH CACHE)
 exports.getStockBySymbol = async (symbol) => {
     console.log("👉 Service hit for:", symbol);
+
     const key = `stock:${symbol.toUpperCase()}`;
 
-    // 1. Check cache
     const cached = await redis.get(key);
 
     if (cached) {
@@ -31,14 +21,12 @@ exports.getStockBySymbol = async (symbol) => {
 
     console.log("🐢 Cache MISS");
 
-    // 2. Fetch from "DB"
-    const stock = stocks.find(
-        (s) => s.symbol === symbol.toUpperCase()
-    );
+    const stock = await Stock.findOne({
+        symbol: symbol.toUpperCase(),
+    });
 
     if (!stock) return null;
 
-    // 3. Store in Redis (TTL = 60 sec)
     await redis.set(key, JSON.stringify(stock), "EX", 60);
 
     return stock;
@@ -48,15 +36,14 @@ exports.getStockBySymbol = async (symbol) => {
 exports.updateStock = async (symbol, price) => {
     const key = `stock:${symbol.toUpperCase()}`;
 
-    const stock = stocks.find(
-        (s) => s.symbol === symbol.toUpperCase()
+    const stock = await Stock.findOneAndUpdate(
+        { symbol: symbol.toUpperCase() },
+        { price },
+        { new: true }
     );
 
     if (!stock) return null;
 
-    stock.price = price;
-
-    // ❗ Invalidate cache
     await redis.del(key);
 
     return stock;
@@ -66,16 +53,13 @@ exports.updateStock = async (symbol, price) => {
 exports.deleteStock = async (symbol) => {
     const key = `stock:${symbol.toUpperCase()}`;
 
-    const index = stocks.findIndex(
-        (s) => s.symbol === symbol.toUpperCase()
-    );
+    const stock = await Stock.findOneAndDelete({
+        symbol: symbol.toUpperCase(),
+    });
 
-    if (index === -1) return null;
+    if (!stock) return null;
 
-    const deleted = stocks.splice(index, 1);
-
-    // ❗ Invalidate cache
     await redis.del(key);
 
-    return deleted;
+    return stock;
 };
