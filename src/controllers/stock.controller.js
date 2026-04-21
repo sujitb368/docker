@@ -1,21 +1,24 @@
 const stockService = require("../services/stock.service");
-
+const asyncHandler = require("../utils/asyncHandler");
 exports.getAllStocks = async (req, res) => {
   const data = stockService.getAllStocks();
   res.json(data);
 };
 
-exports.getStockBySymbol = async (req, res) => {
+exports.getStockBySymbol = asyncHandler(async (req, res) => {
   const { symbol } = req.params;
 
   const stock = await stockService.getStockBySymbol(symbol);
 
   if (!stock) {
-    return res.status(404).json({ message: "Stock not found" });
+    throw new AppError('Stock not found', 404);
   }
 
-  res.json(stock);
-};
+  res.json({
+    success: true,
+    data: stock
+  });
+});
 
 exports.updateStock = async (req, res) => {
   const { symbol } = req.params;
