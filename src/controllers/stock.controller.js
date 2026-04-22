@@ -1,5 +1,6 @@
 const stockService = require("../services/stock.service");
 const asyncHandler = require("../utils/asyncHandler");
+const AppError = require("../utils/AppError");
 exports.getAllStocks = async (req, res) => {
   const data = stockService.getAllStocks();
   res.json(data);

@@ -5,7 +5,6 @@ const errorMiddleware = require('./middlewares/error.middleware');
 const app = express();
 
 app.use(express.json());
-app.use(errorMiddleware);
 
 // routes will come here later
 
@@ -16,7 +15,7 @@ app.get("/health", (req, res) => {
 });
 
 // stock routes
-const stockRoutes = require("./routes/stock.routes");
-app.use("/api/stocks", stockRoutes);
+app.use("/api/stocks", require("./routes/stock.routes"));
 
+app.use(errorMiddleware); // golbal error handler middleware
 module.exports = app;

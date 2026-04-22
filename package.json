@@ -8,8 +8,8 @@
   },
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "test": "jest"
+    "test": "jest",
+    "dev": "nodemon --inspect=0.0.0.0:9229 src/server.js"
   },
   "jest": {
     "setupFilesAfterEnv": [
