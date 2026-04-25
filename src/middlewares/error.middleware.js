@@ -1,3 +1,5 @@
+const logger = require("../config/logger");
+
 /**
  * Global Error Handling Middleware (Express)
  * ----------------------------------------
@@ -20,13 +22,20 @@
  * @param {Function} next - Express next function (not used here but required)
  */
 
+
 module.exports = (err, req, res, next) => {
 
   /**
    * Log the error for debugging purposes
    * In production, replace this with a logger (Winston, Pino, etc.)
    */
-  console.error('ERROR :', err);
+  logger.error({
+    message: err.message,
+    statusCode: err.statusCode,
+    status: err.status,
+    isOperational: err.isOperational,
+    stack: err.stack
+  });
 
   /**
    * If error has a defined statusCode (like AppError),
@@ -59,6 +68,35 @@ module.exports = (err, req, res, next) => {
           ↓
       Client gets clean JSON response
    */
+
+
+  // 🧠 Development mode (show full error)
+  if (process.env.NODE_ENV === 'development') {
+    return res.status(statusCode).json({
+      success: false,
+      message,
+      stack: err.stack
+    });
+  }
+
+  // 🧠 Production mode (hide internal details)
+  if (process.env.NODE_ENV === 'production') {
+    // operational error → safe to show
+    if (err.isOperational) {
+      return res.status(statusCode).json({
+        success: false,
+        message
+      });
+    }
+
+    // unknown error → don't leak details
+    return res.status(500).json({
+      success: false,
+      message: 'Something went wrong'
+    });
+  }
+
+  // fallback
   res.status(statusCode).json({
     success: false,
     message

@@ -1,12 +1,19 @@
 const express = require("express");
 const errorMiddleware = require('./middlewares/error.middleware');
+const helmet = require('helmet');
+const morgan = require('morgan');
 
-// after all routes
 const app = express();
+
+
+app.use(helmet());
 
 app.use(express.json());
 
-// routes will come here later
+
+// route | request logs
+app.use(morgan('dev'));
+
 
 // Health route
 app.get("/health", (req, res) => {
@@ -14,8 +21,16 @@ app.get("/health", (req, res) => {
 //   res.json({ status: "fail" });
 });
 
+
+// rate limiter
+app.use('/api', require('./config/rateLimiter'));
+
+
 // stock routes
 app.use("/api/stocks", require("./routes/stock.routes"));
 
+
+// global middleware
 app.use(errorMiddleware); // golbal error handler middleware
+
 module.exports = app;
