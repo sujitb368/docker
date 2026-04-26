@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 connectDB()
   .then(() => {
     // Start the Express server and listen on the specified port or default to 8000
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`⚙️ Server is running at port : ${PORT}`);
     });
   })
@@ -16,7 +16,3 @@ connectDB()
     // Handle MongoDB connection errors
     console.log("MONGO db connection failed !!! ", err);
   });
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});

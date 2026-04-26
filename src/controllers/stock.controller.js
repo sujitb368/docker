@@ -17,6 +17,7 @@ exports.getStockBySymbol = asyncHandler(async (req, res) => {
 
   res.json({
     success: true,
+    instance: process.env.HOSTNAME,
     data: stock
   });
 });
