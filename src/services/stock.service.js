@@ -1,4 +1,4 @@
-const redis = require("../config/redis");
+// const redis = require("../config/redis");
 const Stock = require("../models/stock.model");
 
 // 🔹 GET ALL
@@ -12,7 +12,7 @@ exports.getStockBySymbol = async (symbol) => {
 
     const key = `stock:${symbol.toUpperCase()}`;
 
-    const cached = await redis.get(key);
+    // const cached = await redis.get(key);
 
     if (cached) {
         console.log("⚡ Cache HIT");
@@ -27,7 +27,7 @@ exports.getStockBySymbol = async (symbol) => {
 
     if (!stock) return null;
 
-    await redis.set(key, JSON.stringify(stock), "EX", 60);
+    // await redis.set(key, JSON.stringify(stock), "EX", 60);
 
     return stock;
 };
@@ -44,7 +44,7 @@ exports.updateStock = async (symbol, price) => {
 
     if (!stock) return null;
 
-    await redis.del(key);
+    // await redis.del(key);
 
     return stock;
 };
@@ -59,7 +59,7 @@ exports.deleteStock = async (symbol) => {
 
     if (!stock) return null;
 
-    await redis.del(key);
+    // await redis.del(key);
 
     return stock;
 };

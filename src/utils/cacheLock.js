@@ -16,7 +16,7 @@ async function releaseLock(key) {
     await redis.del(lockKey);
 }
 
-module.exports = { acquireLock, releaseLock };
+// module.exports = { acquireLock, releaseLock };
 
 // cache lock is a technique to prevent cache stampede by allowing only one request to fetch data from the source and update the cache while other requests wait for the cache to be updated. This is implemented using Redis locks in this code.
 

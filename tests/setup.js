@@ -8,5 +8,5 @@ beforeEach(async () => {
 
 // 🔥 IMPORTANT: close connection after all tests
 afterAll(async () => {
-  await redis.quit();
+  // await redis.quit();
 });

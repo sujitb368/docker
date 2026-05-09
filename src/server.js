@@ -40,7 +40,7 @@ const shutdown = async (signal) => {
 
       // Close Redis connection
       const redisClient = require('./config/redis');
-      await redisClient.quit();
+      // await redisClient.quit();
       console.log('Redis connection closed');
 
       process.exit(0);
