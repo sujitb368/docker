@@ -12,7 +12,7 @@ exports.getStockBySymbol = async (symbol) => {
 
     const key = `stock:${symbol.toUpperCase()}`;
 
-    // const cached = await redis.get(key);
+    const cached = null //await redis.get(key);
 
     if (cached) {
         console.log("⚡ Cache HIT");
