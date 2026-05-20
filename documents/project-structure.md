@@ -2,18 +2,36 @@ stock-app/
 │
 ├── src/
 │   ├── controllers/
+|         └── stock.controller.js
 │   ├── services/
+|         └── stock.service.js
 │   ├── routes/
+|         └── stock.routes.js
 │   ├── models/
 │   ├── config/
+|         └── db.js
+|         └── db.js
+|         └── logger.js
+|         └── metrics.js
+|         └── rateLimiter.js
+|         └── redis.js
 │   ├── middlewares/
+|         └── error.middlewares.js
+|         └── metrics.middlewares.js
+|         └── validate.middlewares.js
+│   ├── validations/
+|         └── stock.validation.js
 │   ├── utils/
+|         └── AppError.js
+|         └── asyncHandler.js
+|         └── cacheLock.js
 │   ├── app.js
 │   └── server.js
 │
 ├── tests/
 │   ├── health.test.js
 │   └── setup.js
+│   └── stock.test.js
 │
 ├── docker/
 │   ├── docker-compose.yml
@@ -22,7 +40,6 @@ stock-app/
 │       └── default.conf
 │
 ├── .env
-├── .env.example
 ├── .gitignore
 ├── Dockerfile
 ├── package.json
