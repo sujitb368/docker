@@ -1,9 +1,9 @@
 const express = require("express");
-const errorMiddleware = require('./middlewares/error.middleware');
+const errorMiddleware = require('./apis/middlewares/error.middleware');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const { client } = require('./config/metrics');
-const metricsMiddleware = require('./middlewares/metrics.middleware');
+const metricsMiddleware = require('./apis/middlewares/metrics.middleware');
 
 const app = express();
 
@@ -35,7 +35,7 @@ app.use('/api', require('./config/rateLimiter'));
 
 
 // stock routes
-app.use("/api/stocks", require("./routes/stock.routes"));
+app.use("/api/stocks", require("./apis/routes/stock.routes"));
 
 
 // global middleware

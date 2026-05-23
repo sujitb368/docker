@@ -1,7 +1,7 @@
 const {
   httpRequestCounter,
   httpRequestDuration
-} = require('../config/metrics');
+} = require('../../config/metrics');
 
 /**
  * 🧠 Middleware to track:

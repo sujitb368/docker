@@ -1,0 +1,38 @@
+{
+  "name": "docker",
+  "version": "1.0.0",
+  "description": "1. What is Docker? Why do we need it? 2. Docker Images & Containers\r 3. Installation of Docker CLI & Desktop\r 4. Important Docker Commands\r 5. Docker vs VM\r 6. Port Mapping & Setting Env Variables\r 7. Troubleshooting Containers\r 8. Using Containers to build Node Application\r 9. Dockerization of Node.js Application (Dockerfile)\r 10. Docker Compose\r a. Services\r b. Port Mapping\r c. Env Variables\r d. Volumes\r 11. Publishing to DockerHub\r 12. Layering in Docker Images\r 13. Volume Mounting\r 14. Docker Networking\r \ta. Default & Custom Networks\r \tb. Using custom network for multi-container apps\r \tc. Network drivers: Bridge, Host, Null\r 15. what is Docker run -it ubuntu? what is -it?",
+  "main": "server.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest",
+    "dev": "nodemon --inspect=0.0.0.0:9229 src/server.js"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setup.js"
+    ]
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.4.1",
+    "helmet": "^8.1.0",
+    "ioredis": "^5.10.1",
+    "joi": "^17.13.3",
+    "mongoose": "^8.23.0",
+    "morgan": "^1.10.1",
+    "prom-client": "^15.1.3",
+    "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "jest": "^30.3.0",
+    "nodemon": "^3.1.14",
+    "supertest": "^7.2.2"
+  }
+}

@@ -4,7 +4,7 @@ module.exports = (schema, property = 'body') => {
 
     if (error) {
       return next(
-        new (require('../utils/AppError'))(
+        new (require('../../utils/AppError'))(
           error.details[0].message.replace(/"/g, ''),
           400
         )

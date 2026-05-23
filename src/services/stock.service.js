@@ -1,5 +1,5 @@
 // const redis = require("../config/redis");
-const Stock = require("../models/stock.model");
+const Stock = require("../apis/models/stock.model");
 
 // 🔹 GET ALL
 exports.getAllStocks = async () => {
